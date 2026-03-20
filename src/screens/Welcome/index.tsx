@@ -28,8 +28,8 @@ export function Welcome({ navigation }: any) {
         </LogoWrapper>
 
         <Title>
-          Controle suas {'\n'}finanças de forma {'\n'}
-          <Title primary>simples</Title> e <Title primary>precisa</Title>.
+          Explore Atins {'\n'}
+          <Title primary>Como</Title> <Title primary>Nunca</Title>.
         </Title>
 
         <Button.Root onPress={handlePressSignIn} style={{ width: '50%', alignSelf: 'center' }}>

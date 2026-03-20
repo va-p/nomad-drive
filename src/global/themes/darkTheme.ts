@@ -6,7 +6,7 @@ export default {
     background: 'rgb(0, 0, 0)',
     backgroundNav: 'rgb(20, 20, 20)',
     statusBar: 'rgb(14, 14, 14)',
-    backgroundCardHeader: 'rgba(20, 20, 20, 0.7)', // Card of top screens
+    backgroundCardHeader: 'rgba(27, 27, 31, 1)', // Card of top screens
 
     gradientStart: 'rgb(20, 20, 20)',
     gradientEnd: 'rgb(0, 0, 0)',
@@ -20,6 +20,7 @@ export default {
     text: 'rgb(220, 220, 220)',
     textPlaceholder: 'rgb(100, 100, 100)',
     textLight: 'rgb(0, 0, 0)',
+    textGray: 'rgb(150, 156, 178)',
 
     border: 'rgb(60, 60, 60)',
 

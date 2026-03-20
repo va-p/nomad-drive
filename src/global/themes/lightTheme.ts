@@ -11,17 +11,18 @@ export default {
     gradientStart: '#FFEBCE',
     gradientEnd: '#E6E9F4',
 
-    shape: 'rgba(255, 255, 255, 0.5)',
+    shape: 'rgba(255, 255, 255, 1)',
     shapeDark: 'rgb(150, 156, 178)',
 
     button: 'rgb(255, 170, 41)',
 
-    title: '#000000',
+    title: 'rgb(71, 71, 77)',
     text: '#000000',
-    textPlaceholder: 'rgb(150, 156, 178)',
-    textLight: '#FFFFFF',
+    textPlaceholder: 'rgb(174, 174, 179)',
+    textLight: 'rgb(255, 255, 255)',
+    textGray: 'rgba(122, 122, 128, 1)',
 
-    border: '#707070',
+    border: 'rgba(255, 255, 255, 1)',
 
     success: 'rgb(18, 195, 140)',
     success_light: 'rgba(18, 195, 140, 0.7)',

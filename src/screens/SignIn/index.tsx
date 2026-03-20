@@ -37,6 +37,7 @@ import { ControlledInput } from '@components/ControlledInput';
 
 import { ThemeProps } from '@interfaces/theme';
 
+import Logotipo from '@assets/Logotipo.svg';
 const LOGO_URL = '@assets/logo.png';
 const GOOGLE_LOGO_URL = '@assets/googleLogo.png';
 
@@ -70,7 +71,7 @@ export function SignIn() {
   const googleOAuth = useOAuth({
     strategy: 'oauth_google',
     // redirectUrl: 'com.vap.smartfinances://oauth-native-callback',
-    redirectUrl: 'com.digitaltech.nomad-drive://oauth-native-callback',
+    redirectUrl: 'com.vap.nomaddrive://oauth-callback',
   });
 
   async function handleSignInWithMail(form: FormData) {
@@ -142,7 +143,8 @@ export function SignIn() {
 
         <MainContent>
           <LogoWrapper>
-            <Logo source={require(LOGO_URL)} style={{ width: '30%' }} />
+            {/*<Logo source={require(LOGO_URL)} style={{ width: '30%' }} />*/}
+            <Logotipo width={100} height={100} />
           </LogoWrapper>
 
           <SubTitle>Faça Login abaixo</SubTitle>

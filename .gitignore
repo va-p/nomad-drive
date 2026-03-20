@@ -39,7 +39,8 @@ src/api/api.ts
 # typescript
 *.tsbuildinfo
 
-# GCloud APIs
+# Google Services
+android/app/google-services.json
 
 # Java and Kotlin files
 .kotlin/
@@ -54,4 +55,6 @@ expo-env.d.ts
 # @end expo-cli
 
 # yarn cache files
+.yarn
 .yarn/
+.yarn/cache

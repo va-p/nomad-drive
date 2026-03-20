@@ -4,12 +4,10 @@ import { Container, Content, Label, Value } from './styles';
 
 import { Screen } from '@components/Screen';
 import { Header } from '@components/Header';
-import { Gradient } from '@components/Gradient';
 
 import DeviceInfo from 'react-native-device-info';
-import codePush from '@revopush/react-native-code-push';
+// import codePush from '@revopush/react-native-code-push';
 import { RectButton } from 'react-native-gesture-handler';
-import Clipboard from '@react-native-clipboard/clipboard';
 
 export function DevScreen() {
   const [fullVersion, setFullVersion] = useState('');
@@ -19,20 +17,21 @@ export function DevScreen() {
   const appVersion = DeviceInfo.getVersion();
 
   function copy(text: string, msg: string) {
-    Clipboard.setString(text);
+    // Clipboard.setString(text);
   }
 
   const loadData = useCallback(async () => {
     try {
-      const meta = await codePush.getUpdateMetadata();
-      if (meta) {
-        setCpLabel(meta.label);
-        setCpDesc(meta.description);
-        setCpHash(meta.packageHash);
-        setFullVersion(`${appVersion} (${meta.label})`);
-      } else {
-        setFullVersion(`${appVersion}`);
-      }
+      // const meta = await codePush.getUpdateMetadata();
+      // if (meta) {
+      //   setCpLabel(meta.label);
+      //   setCpDesc(meta.description);
+      //   setCpHash(meta.packageHash);
+      //   setFullVersion(`${appVersion} (${meta.label})`);
+      // } else {
+      //   setFullVersion(`${appVersion}`);
+      // }
+      setFullVersion(`${appVersion}`);
     } catch (error) {
       console.error(error);
       Alert.alert('Erro', 'Erro ao obter dados de debug');
@@ -43,75 +42,71 @@ export function DevScreen() {
     loadData();
   }, [loadData]);
 
-  const checkForUpdate = async () => {
-    try {
-      const update = await codePush.checkForUpdate();
-      if (update) {
-        Alert.alert('Atualização disponível', 'Atualizar agora?', [
-          { text: 'Sim', onPress: () => syncNow() },
-          { text: 'Depois', onPress: () => {} },
-        ]);
-      } else {
-        Alert.alert('Atualização não encontrada', 'Ok, fechar');
-      }
-    } catch (e) {
-      console.log(e);
-      Alert.alert('Erro', 'Erro ao checar update');
-    }
-  };
+  // const checkForUpdate = async () => {
+  //   try {
+  //     const update = await codePush.checkForUpdate();
+  //     if (update) {
+  //       Alert.alert('Atualização disponível', 'Atualizar agora?', [
+  //         { text: 'Sim', onPress: () => syncNow() },
+  //         { text: 'Depois', onPress: () => {} },
+  //       ]);
+  //     } else {
+  //       Alert.alert('Atualização não encontrada', 'Ok, fechar');
+  //     }
+  //   } catch (e) {
+  //     console.log(e);
+  //     Alert.alert('Erro', 'Erro ao checar update');
+  //   }
+  // };
 
-  const syncNow = async () => {
-    try {
-      await codePush.sync({
-        installMode: codePush.InstallMode.IMMEDIATE,
-        updateDialog: {
-          title: 'Atualização disponível',
-          optionalUpdateMessage: 'Aplicar agora?',
-          optionalInstallButtonLabel: 'Sim',
-          optionalIgnoreButtonLabel: 'Depois',
-          mandatoryUpdateMessage: 'Atualização obrigatória.',
-          mandatoryContinueButtonLabel: 'Atualizar',
-          appendReleaseDescription: true,
-          descriptionPrefix: '\n\nNovidades:\n',
-        },
-      });
-      setTimeout(loadData, 1000);
-    } catch (e) {
-      console.log(e);
-      Alert.alert('Erro', 'Erro ao sincronizar');
-    }
-  };
+  // const syncNow = async () => {
+  //   try {
+  //     await codePush.sync({
+  //       installMode: codePush.InstallMode.IMMEDIATE,
+  //       updateDialog: {
+  //         title: 'Atualização disponível',
+  //         optionalUpdateMessage: 'Aplicar agora?',
+  //         optionalInstallButtonLabel: 'Sim',
+  //         optionalIgnoreButtonLabel: 'Depois',
+  //         mandatoryUpdateMessage: 'Atualização obrigatória.',
+  //         mandatoryContinueButtonLabel: 'Atualizar',
+  //         appendReleaseDescription: true,
+  //         descriptionPrefix: '\n\nNovidades:\n',
+  //       },
+  //     });
+  //     setTimeout(loadData, 1000);
+  //   } catch (e) {
+  //     console.log(e);
+  //     Alert.alert('Erro', 'Erro ao sincronizar');
+  //   }
+  // };
 
   return (
     <Screen>
       <Container>
-        <Gradient />
-
         <Header.Root>
           <Header.BackButton />
-          <Header.Title title='Developer Menu' />
+          <Header.Title title="Developer Menu" />
         </Header.Root>
 
         <Content>
           {/* App Version / CodePush */}
           <Label disabled={!fullVersion}>App version</Label>
           <Value disabled={!fullVersion}>
-            <RectButton
-              onPress={() => copy(fullVersion, 'Versão do Aplicativo copiada!')}
-            >
+            <RectButton onPress={() => copy(fullVersion, 'Versão do Aplicativo copiada!')}>
               <Label disabled={!fullVersion}>{fullVersion || '—'}</Label>
             </RectButton>
           </Value>
 
           {/* RevoPush extras */}
-          <Label disabled={!cpLabel}>RevoPush Label</Label>
+          {/*<Label disabled={!cpLabel}>RevoPush Label</Label>
           <Value disabled={!cpLabel}>
             <RectButton onPress={() => copy(cpLabel!, 'Label copiada!')}>
               <Label disabled={!cpLabel}>{cpLabel || '—'}</Label>
             </RectButton>
-          </Value>
+          </Value>*/}
 
-          <Label disabled={!cpDesc}>RevoPush Description</Label>
+          {/*<Label disabled={!cpDesc}>RevoPush Description</Label>
           <Value disabled={!cpDesc}>
             <RectButton onPress={() => copy(cpDesc!, 'Descrição copiada!')}>
               <Label disabled={!cpDesc}>{cpDesc || '—'}</Label>
@@ -123,11 +118,11 @@ export function DevScreen() {
             <RectButton onPress={() => copy(cpHash!, 'Package hash copiado!')}>
               <Label disabled={!cpHash}>{cpHash || '—'}</Label>
             </RectButton>
-          </Value>
+          </Value>*/}
 
           {/* Ações rápidas */}
           <View style={{ height: 16 }} />
-          <Value disabled={false}>
+          {/*<Value disabled={false}>
             <RectButton onPress={checkForUpdate}>
               <Label disabled={false}>🔍 Check update</Label>
             </RectButton>
@@ -136,7 +131,7 @@ export function DevScreen() {
             <Value disabled={false}>
               <Label disabled={false}>⚡ Sync now</Label>
             </Value>
-          </RectButton>
+          </RectButton>*/}
         </Content>
       </Container>
     </Screen>

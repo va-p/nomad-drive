@@ -6,14 +6,14 @@ import { OneSignal } from 'react-native-onesignal';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { useUser as useClerkUser, getClerkInstance } from '@clerk/clerk-expo';
 
-// import {
-//   STORAGE_CONFIGS,
-//   STORAGE_TOKENS,
-//   STORAGE_USERS,
-//   storageConfig,
-//   storageToken,
-//   storageUser,
-// } from '@storage/mmkv';
+import {
+  STORAGE_CONFIGS,
+  STORAGE_TOKENS,
+  STORAGE_USERS,
+  storageConfig,
+  storageToken,
+  storageUser,
+} from '@storage/mmkv';
 
 import { useUser } from '@stores/userStore';
 import { useUserConfigs } from '@stores/userConfigsStore';
@@ -68,8 +68,7 @@ export function AuthProvider({ children }: any) {
         insights: userData.insights,
       },
     };
-    // TODO: Reimplements mmkv
-    // storageUser.set(`${DATABASE_USERS}`, JSON.stringify(loggedInUserDataFormatted));
+    storageUser.set(`${STORAGE_USERS}`, JSON.stringify(loggedInUserDataFormatted));
     useUser.setState(() => ({
       id: loggedInUserDataFormatted.id,
       name: loggedInUserDataFormatted.name,
@@ -80,14 +79,12 @@ export function AuthProvider({ children }: any) {
       profileImage: loggedInUserDataFormatted.image,
     }));
 
-    // TODO: Reimplements mmkv
-
     // User Configs
-    // storageConfig.set(`${STORAGE_CONFIGS}.useLocalAuth`, userData.use_local_authentication);
-    // storageConfig.set(`${STORAGE_CONFIGS}.skipWelcomeScreen`, true);
-    // useUserConfigs.setState(() => ({
-    //   useLocalAuth: userData.use_local_authentication,
-    // }));
+    storageConfig.set(`${STORAGE_CONFIGS}.useLocalAuth`, userData.use_local_authentication);
+    storageConfig.set(`${STORAGE_CONFIGS}.skipWelcomeScreen`, true);
+    useUserConfigs.setState(() => ({
+      useLocalAuth: userData.use_local_authentication,
+    }));
 
     return loggedInUserDataFormatted;
   }
@@ -96,8 +93,7 @@ export function AuthProvider({ children }: any) {
     try {
       const compatible = await LocalAuthentication.hasHardwareAsync();
       const enrolled = await LocalAuthentication.isEnrolledAsync();
-      // const useLocalAuth = storageConfig.getBoolean(`${DATABASE_CONFIGS}.useLocalAuth`);
-      const useLocalAuth = false;
+      const useLocalAuth = storageConfig.getBoolean(`${STORAGE_CONFIGS}.useLocalAuth`);
 
       return (compatible && enrolled && useLocalAuth) || false;
     } catch (error) {
@@ -113,31 +109,29 @@ export function AuthProvider({ children }: any) {
         cancelLabel: 'Cancelar',
       });
       if (biometricAuth.success) {
-        // const jsonUser = storageUser.getString('user');
+        const jsonUser = storageUser.getString('user');
 
-        // const useLocalAuth = storageConfig.getBoolean(`${STORAGE_CONFIGS}.useLocalAuth`);
-        const useLocalAuth = false;
+        const useLocalAuth = storageConfig.getBoolean(`${STORAGE_CONFIGS}.useLocalAuth`);
         const userConfigObject = {
           useLocalAuth: useLocalAuth || false,
         };
-        // if (jsonUser && userConfigObject) {
-        if (userConfigObject) {
-          // const userObject = JSON.parse(jsonUser);
-          // useUser.setState(() => ({
-          //   id: userObject.id,
-          //   name: userObject.name,
-          //   lastName: userObject.lastName,
-          //   email: userObject.email,
-          //   phone: userObject.phone,
-          //   role: userObject.role,
-          //   profileImage: userObject.image,
-          // }));
-          // useUserConfigs.setState(() => ({
-          //   useLocalAuth: userConfigObject.useLocalAuth,
-          // }));
-          // OneSignal.login(userObject.id);
-          // setIsSignedIn(true);
-          // setUser(userObject);
+        if (jsonUser && userConfigObject) {
+          const userObject = JSON.parse(jsonUser);
+          useUser.setState(() => ({
+            id: userObject.id,
+            name: userObject.name,
+            lastName: userObject.lastName,
+            email: userObject.email,
+            phone: userObject.phone,
+            role: userObject.role,
+            profileImage: userObject.image,
+          }));
+          useUserConfigs.setState(() => ({
+            useLocalAuth: userConfigObject.useLocalAuth,
+          }));
+          OneSignal.login(userObject.id);
+          setIsSignedIn(true);
+          setUser(userObject);
         }
       }
     } catch (error) {
@@ -192,7 +186,7 @@ export function AuthProvider({ children }: any) {
               });
 
               if (!!data[0] && status === 200) {
-                // storageToken.set(`${STORAGE_TOKENS}`, JSON.stringify(data[0]));
+                storageToken.set(`${STORAGE_TOKENS}`, JSON.stringify(data[0]));
                 const loggedInUserDataFormatted = storageUserDataAndConfig(data[1]);
                 OneSignal.login(loggedInUserDataFormatted.id);
                 setIsSignedIn(clerkSignedIn!);
@@ -226,8 +220,8 @@ export function AuthProvider({ children }: any) {
 
       const { data, status } = await api.post('auth/login', SignInUser);
       const token = data.authToken || null;
-      if (status === 200) {
-        // storageToken.set(`${STORAGE_TOKENS}`, JSON.stringify(token));
+      if (status === 200 && !!token) {
+        storageToken.set(`${STORAGE_TOKENS}`, JSON.stringify(token));
 
         const userData = (await api.get('auth/me')).data;
 
@@ -259,9 +253,9 @@ export function AuthProvider({ children }: any) {
       setUser(null);
 
       // Clears MMKV storage
-      // storageUser.set(`${STORAGE_USERS}`, '');
-      // storageToken.set(`${STORAGE_TOKENS}`, '');
-      // storageConfig.set(`${STORAGE_CONFIGS}`, '');
+      storageUser.set(`${STORAGE_USERS}`, '');
+      storageToken.set(`${STORAGE_TOKENS}`, '');
+      storageConfig.set(`${STORAGE_CONFIGS}`, '');
 
       // Clears Zustand state
       useUser.setState(() => ({
@@ -299,7 +293,7 @@ export function AuthProvider({ children }: any) {
 
       try {
         if (clerkSignedIn && clerkUser) {
-          await fetchClerkUserDataOnDB();
+          fetchClerkUserDataOnDB();
         } else {
           const canUseBiometrics = await canSignInWithBiometrics();
           if (canUseBiometrics) {

@@ -10,6 +10,5 @@ export interface User {
   phone: string;
   role: UserRole;
   profileImage: string;
-  premium?: boolean;
   configs: UserConfigs;
 }

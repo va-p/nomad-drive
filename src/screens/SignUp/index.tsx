@@ -42,6 +42,7 @@ const schema = zod
     name: zod.string().min(1, 'Digite o seu nome'),
     lastName: zod.string().min(1, 'Digite o seu sobrenome'),
     email: zod.email('Digite um e-mail válido').min(1, 'Digite o seu melhor e-mail'),
+    phone: zod.string().min(1, 'Digite o seu telefone'),
     password: zod
       .string()
       .min(1, 'Digite a sua senha')
@@ -121,6 +122,7 @@ export function SignUp() {
         name: form.name,
         lastName: form.lastName,
         email: form.email,
+        phone: form.phone,
         password: form.password,
       };
 
@@ -134,7 +136,7 @@ export function SignUp() {
 
         Alert.alert(
           'Cadastro de usuário',
-          'Bem vindo ao Smart Finances! Você será redirecionado para a tela de login.',
+          'Bem vindo ao Nomad Drive! Você será redirecionado para a tela de login.',
           [{ text: 'OK', onPress: () => router.navigate('/signIn') }]
         );
       }
@@ -207,6 +209,18 @@ export function SignUp() {
             />
 
             <ControlledInput
+              placeholder="Telefone"
+              autoCapitalize="none"
+              keyboardType="phone-pad"
+              autoCorrect={false}
+              autoComplete="tel"
+              textContentType="telephoneNumber"
+              name="phone"
+              control={control}
+              error={errors.phone}
+            />
+
+            <ControlledInput
               placeholder="Senha"
               autoCorrect={false}
               secureTextEntry={true}
@@ -230,6 +244,13 @@ export function SignUp() {
               onSubmitEditing={handleSubmit(handleRegisterUser)}
             />
           </FormWrapper>
+
+          <Button.Root
+            isLoading={loading}
+            onPress={handleSubmit(handleRegisterUser)}
+            style={{ width: '50%', alignSelf: 'center', marginBottom: 16 }}>
+            <Button.Text text="Cadastrar" />
+          </Button.Root>
 
           <ScreenDivider text="Ou" />
 
@@ -259,14 +280,7 @@ export function SignUp() {
             .
           </Text>
 
-          <Button.Root
-            isLoading={loading}
-            onPress={handleSubmit(handleRegisterUser)}
-            style={{ width: '50%', alignSelf: 'center' }}>
-            <Button.Text text="Cadastrar" />
-          </Button.Root>
-
-          <Text style={{ textAlign: 'center', marginTop: 20 }}>
+          <Text style={{ textAlign: 'center' }}>
             Já possui uma conta?{' '}
             <Text style={{ color: theme.colors.primary }} onPress={handlePressLogin}>
               Login
