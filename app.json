@@ -14,11 +14,16 @@
       "expo-router",
       "expo-secure-store",
       "expo-font",
+      "@react-native-firebase/app",
+      "@react-native-firebase/crashlytics",
       [
         "expo-build-properties",
         {
           "android": {
             "okhttpVersion": "4.9.2"
+          },
+          "ios": {
+            "useFrameworks": "static"
           }
         }
       ]
@@ -38,6 +43,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
+      "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "com.vap.nomaddrive"
     },
     "android": {
@@ -45,6 +51,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
+      "googleServicesFile": "./google-services.json",
       "package": "com.vap.nomaddrive"
     }
   }
