@@ -43,7 +43,7 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "googleServicesFile": "./GoogleService-Info.plist",
+      "googleServicesFile": "./ios/GoogleService-Info.plist",
       "bundleIdentifier": "com.vap.nomaddrive"
     },
     "android": {
@@ -51,7 +51,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "googleServicesFile": "./google-services.json",
+      "googleServicesFile": "./android/app/google-services.json",
       "package": "com.vap.nomaddrive"
     }
   }
