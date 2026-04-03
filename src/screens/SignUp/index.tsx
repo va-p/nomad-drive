@@ -33,7 +33,7 @@ import api from '@api/api';
 import { eUrl } from '@enums/enumsUrl';
 import { ThemeProps } from '@interfaces/theme';
 
-const LOGO_URL = '@assets/logo.png';
+import Logotipo from '@assets/Logotipo.svg';
 const GOOGLE_LOGO_URL = '@assets/googleLogo.png';
 
 /* Validation Form - Start */
@@ -168,7 +168,7 @@ export function SignUp() {
 
         <MainContent>
           <LogoWrapper style={{ marginBottom: -16 }}>
-            <Logo source={require(LOGO_URL)} style={{ width: '30%' }} />
+            <Logotipo width={100} height={100} />
           </LogoWrapper>
 
           <SubTitle style={{ marginBottom: 8 }}>Faça seu cadastro abaixo</SubTitle>
