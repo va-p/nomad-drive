@@ -3,7 +3,8 @@ export default {
     primary: 'rgb(255, 170, 41)',
     primary_light: 'rgba(255, 82, 0, 0.3)',
 
-    background: 'rgb(230, 233, 244)',
+    // background: 'rgb(230, 233, 244)',
+    background: 'rgb(255, 255, 255)',
     backgroundNav: 'rgba(255, 255, 255, 0.95)',
     statusBar: 'rgb(230, 233, 244)',
     backgroundCardHeader: 'rgba(255, 255, 255, 0.5)', // Card of top screens
@@ -11,7 +12,8 @@ export default {
     gradientStart: '#FFEBCE',
     gradientEnd: '#E6E9F4',
 
-    shape: 'rgba(255, 255, 255, 1)',
+    // shape: 'rgba(255, 255, 255, 1)',
+    shape: 'rgba(244, 245, 246, 1)',
     shapeDark: 'rgb(150, 156, 178)',
 
     button: 'rgb(255, 170, 41)',
