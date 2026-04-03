@@ -9,8 +9,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useUserConfigs } from '@stores/userConfigsStore';
 
 // Icons
-import { TabBarIcon } from '../../components/TabBarIcon';
 import { JeepIcon } from 'phosphor-react-native/src/icons/Jeep';
+import { HeartIcon } from 'phosphor-react-native/src/icons/Heart';
+import { CalendarCheckIcon } from 'phosphor-react-native/src/icons/CalendarCheck';
 import { DotsThreeOutlineIcon } from 'phosphor-react-native/src/icons/DotsThreeOutline';
 
 import { ThemeProps } from '@interfaces/theme';
@@ -27,6 +28,7 @@ export default function TabLayout() {
         barStyle={darkMode ? 'light-content' : 'dark-content'}
         backgroundColor="transparent"
       />
+
       <Tabs
         screenOptions={{
           headerShown: false,
@@ -49,9 +51,7 @@ export default function TabLayout() {
           tabBarBackground: () => (
             <BlurView
               intensity={darkMode ? 30 : 50}
-              // intensity={50}
               experimentalBlurMethod="dimezisBlurView"
-              tint={darkMode ? 'dark' : 'light'}
               style={StyleSheet.absoluteFill}
             />
           ),
@@ -69,8 +69,8 @@ export default function TabLayout() {
         <Tabs.Screen
           name="trips"
           options={{
-            title: 'Viagens',
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            title: 'Agendamentos',
+            tabBarIcon: ({ color }) => <CalendarCheckIcon color={color} />,
             sceneStyle: {
               backgroundColor: 'transparent',
             },
@@ -81,7 +81,7 @@ export default function TabLayout() {
           name="favorites"
           options={{
             title: 'Favoritos',
-            tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+            tabBarIcon: ({ color }) => <HeartIcon color={color} />,
             sceneStyle: {
               backgroundColor: 'transparent',
             },

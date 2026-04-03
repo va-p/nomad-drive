@@ -1,15 +1,15 @@
 import React from 'react';
 import { Platform } from 'react-native';
-import { Container, LogoWrapper, Logo, Title, Text } from './styles';
+import { Container, LogoWrapper, Title, Text } from './styles';
 
 import { useRouter } from 'expo-router';
 
 import { Screen } from '@components/Screen';
 import { Button } from '@components/Button';
 
-const LOGO_URL = '@assets/logo.png';
+import Logotipo from '@assets/Logotipo.svg';
 
-export function Welcome({ navigation }: any) {
+export function Welcome() {
   const router = useRouter();
 
   function handlePressSignIn() {
@@ -24,7 +24,7 @@ export function Welcome({ navigation }: any) {
     <Screen>
       <Container behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <LogoWrapper>
-          <Logo source={require(LOGO_URL)} style={{ width: '30%' }} />
+          <Logotipo width={100} height={100} />
         </LogoWrapper>
 
         <Title>

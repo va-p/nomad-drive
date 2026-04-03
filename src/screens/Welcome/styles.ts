@@ -18,10 +18,6 @@ export const LogoWrapper = styled.View`
   justify-content: center;
 `;
 
-export const Logo = styled.Image.attrs({
-  resizeMode: 'contain',
-})``;
-
 export const Title = styled.Text<TitleProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: 24px;

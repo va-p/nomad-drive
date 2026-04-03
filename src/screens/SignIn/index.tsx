@@ -19,9 +19,9 @@ import * as zod from 'zod';
 import { isAxiosError } from 'axios';
 import { useRouter } from 'expo-router';
 import { useForm } from 'react-hook-form';
+import { useSSO } from '@clerk/clerk-expo';
 import { useTheme } from 'styled-components';
 import * as WebBrowser from 'expo-web-browser';
-import { useSSO, useOAuth } from '@clerk/clerk-expo';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Icons
@@ -38,7 +38,6 @@ import { ControlledInput } from '@components/ControlledInput';
 import { ThemeProps } from '@interfaces/theme';
 
 import Logotipo from '@assets/Logotipo.svg';
-const LOGO_URL = '@assets/logo.png';
 const GOOGLE_LOGO_URL = '@assets/googleLogo.png';
 
 type FormData = {
@@ -67,12 +66,8 @@ export function SignIn() {
     resolver: zodResolver(schema),
   });
 
+  const { startSSOFlow } = useSSO();
   const { signInWithMail } = useAuth();
-  const googleOAuth = useOAuth({
-    strategy: 'oauth_google',
-    // redirectUrl: 'com.vap.smartfinances://oauth-native-callback',
-    redirectUrl: 'com.vap.nomaddrive://oauth-callback',
-  });
 
   async function handleSignInWithMail(form: FormData) {
     try {
@@ -92,12 +87,12 @@ export function SignIn() {
   async function handleContinueWithGoogle() {
     try {
       setLoading(true);
-      const oAuthFlow = await googleOAuth.startOAuthFlow();
+      const { createdSessionId, setActive } = await startSSOFlow({
+        strategy: 'oauth_google',
+      });
 
-      if (oAuthFlow.authSessionResult?.type === 'success' && oAuthFlow.createdSessionId) {
-        await oAuthFlow.setActive!({
-          session: oAuthFlow.createdSessionId,
-        });
+      if (createdSessionId && setActive) {
+        await setActive({ session: createdSessionId });
         return;
       } else {
         Alert.alert(
@@ -143,7 +138,6 @@ export function SignIn() {
 
         <MainContent>
           <LogoWrapper>
-            {/*<Logo source={require(LOGO_URL)} style={{ width: '30%' }} />*/}
             <Logotipo width={100} height={100} />
           </LogoWrapper>
 

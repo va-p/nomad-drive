@@ -69,11 +69,6 @@ function RootNavigationLayout() {
     return null;
   }
 
-  // const inAuthGroup = segments[0] === '(auth)';
-  // if (!isSignedIn && !inAuthGroup) {
-  //   return null;
-  // }
-
   return <Slot />;
 }
 
