@@ -4,6 +4,7 @@ import { Container, Header, Description, ListContainer } from './styles';
 
 import { useUser } from '@stores/userStore';
 
+import { router } from 'expo-router';
 import { useUser as useClerkUser } from '@clerk/clerk-expo';
 
 import { Screen } from '@components/Screen';
@@ -38,6 +39,10 @@ export function Home() {
     await fetchVehicles();
   };
 
+  const handleVehiclePress = (vehicleId: string) => {
+    router.push(`/vehicle/${vehicleId}`);
+  };
+
   useEffect(() => {
     if ((!!clerkUser && !!clerkSignedIn) || userId) {
       fetchVehicles();
@@ -56,7 +61,9 @@ export function Home() {
           <FlatList
             data={vehicles}
             keyExtractor={(item: Vehicle) => item.id.toString()}
-            renderItem={({ item }) => <VehicleListItem data={item} />}
+            renderItem={({ item }) => (
+              <VehicleListItem data={item} onPress={() => handleVehiclePress(item.id)} />
+            )}
             onRefresh={handleRefresh}
             refreshing={false}
             contentContainerStyle={{

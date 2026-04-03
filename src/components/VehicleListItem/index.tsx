@@ -17,16 +17,17 @@ import { RectButtonProps } from 'react-native-gesture-handler';
 
 type Props = RectButtonProps & {
   data: Vehicle;
+  onPress?: () => void;
 };
 
-export function VehicleListItem({ data, ...rest }: Props) {
+export function VehicleListItem({ data, onPress, ...rest }: Props) {
   const primaryImageUrl =
     data.images?.find((img) => img.isPrimary)?.imageUrl || data.images?.[0].imageUrl || '';
 
   console.log('primaryImageUrl ===>', primaryImageUrl);
 
   return (
-    <Container {...rest}>
+    <Container {...rest} onPress={onPress}>
       <DetailsContainer>
         <Type>{data.type}</Type>
         <Brand>{data.brand}</Brand>
