@@ -1,53 +1,26 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { FlatList } from 'react-native';
 import { Container, Header, Description, ListContainer } from './styles';
 
-import { useUser } from '@stores/userStore';
+// Hooks
+import { useVehicles } from '@hooks/useVehicles';
 
 import { router } from 'expo-router';
-import { useUser as useClerkUser } from '@clerk/clerk-expo';
 
+// Components
 import { Screen } from '@components/Screen';
 import { VehicleListItem } from '@components/VehicleListItem';
 
 import Logo from '@assets/Logotipo.svg';
 
-import api from '@api/api';
-
 import { Vehicle } from '@interfaces/vehicle';
 
 export function Home() {
-  const { user: clerkUser, isSignedIn: clerkSignedIn } = useClerkUser();
-  const userId = useUser((state) => state.id);
-  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-
-  console.log('vehicles ===>', vehicles);
-
-  const fetchVehicles = async () => {
-    try {
-      const { status, data } = await api('/vehicle');
-
-      if (status === 200 && data) {
-        setVehicles(data);
-      }
-    } catch (error) {
-      console.error('fetchVehicles error:', error);
-    }
-  };
-
-  const handleRefresh = async () => {
-    await fetchVehicles();
-  };
+  const { data: vehicles = [], isLoading, refetch } = useVehicles();
 
   const handleVehiclePress = (vehicleId: string) => {
     router.push(`/vehicle/${vehicleId}`);
   };
-
-  useEffect(() => {
-    if ((!!clerkUser && !!clerkSignedIn) || userId) {
-      fetchVehicles();
-    }
-  }, [clerkUser, clerkSignedIn, userId]);
 
   return (
     <Screen>
@@ -64,8 +37,8 @@ export function Home() {
             renderItem={({ item }) => (
               <VehicleListItem data={item} onPress={() => handleVehiclePress(item.id)} />
             )}
-            onRefresh={handleRefresh}
-            refreshing={false}
+            onRefresh={refetch}
+            refreshing={isLoading}
             contentContainerStyle={{
               padding: 16,
               paddingBottom: 200,
