@@ -24,8 +24,6 @@ export function VehicleListItem({ data, onPress, ...rest }: Props) {
   const primaryImageUrl =
     data.images?.find((img) => img.isPrimary)?.imageUrl || data.images?.[0].imageUrl || '';
 
-  console.log('primaryImageUrl ===>', primaryImageUrl);
-
   return (
     <Container {...rest} onPress={onPress}>
       <DetailsContainer>

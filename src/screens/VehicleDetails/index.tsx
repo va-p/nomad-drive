@@ -1,109 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { Alert } from 'react-native';
+import React from 'react';
 import {
   Container,
   Header,
   SliderContainer,
   DetailsContainer,
-  HeaderDetailsContainer,
-  BrandAndModelContainer,
-  Brand,
-  Model,
-  PriceContainer,
-  PriceDetails,
-  Price,
-  HighlightsContainer,
-  HighlightCard,
-  HighlightCardSpacer,
-  HighlightValue,
+  DescriptionContainer,
+  Description,
+  Footer,
 } from './styles';
 
-import { formatCurrency } from '@utils/formatCurrency';
+// Hooks
+import { useVehicleDetails } from '@hooks/useVehicleDetails';
 
-import { isAxiosError } from 'axios';
-import { useTheme } from 'styled-components';
+// Dependencies
 import { router, useLocalSearchParams } from 'expo-router';
 
+// Components
 import { Screen } from '@components/Screen';
+import { Button } from '@components/Button';
 import { BackButton } from '@components/BackButton';
 import { ImageSlider } from '@components/ImageSlider';
-// import { VehicleHighlightItem } from '@components/VehicleHighlightItem';
-
-import { JeepIcon } from 'phosphor-react-native/src/icons/Jeep';
-import { UsersIcon } from 'phosphor-react-native/src/icons/Users';
-import { GitForkIcon } from 'phosphor-react-native/src/icons/GitFork';
-
-import api from '@api/api';
-
-import { Vehicle } from '@interfaces/vehicle';
-import { ThemeProps } from '@interfaces/theme';
-
-const transmissionMap: Record<string, string> = {
-  MANUAL: 'Manual',
-  SEMI_AUTOMATIC: 'Semi-Auto',
-  AUTOMATIC: 'Auto',
-};
+import { VehicleHeader } from '@components/VehicleHeader';
+import { VehicleSpecsGrid } from '@components/VehicleSpecsGrid';
 
 export function VehicleDetails() {
-  const theme = useTheme() as ThemeProps;
   const { id } = useLocalSearchParams<{ id: string }>();
-  const [loading, setLoading] = useState(false);
-  const [vehicle, setVehicle] = useState<Vehicle | null>(null);
 
-  const formattedPrice = formatCurrency(vehicle?.dailyRate ?? 0, 'pt-BR', 'BRL');
-
-  console.log('vehicle data:', vehicle);
+  const { data: vehicle, isLoading } = useVehicleDetails(id);
 
   const handleBack = () => {
     router.back();
   };
 
-  useEffect(() => {
-    const fetchVehicle = async () => {
-      setLoading(true);
-      try {
-        const { data, status } = await api(`/vehicle/${id}`);
-        if (!!data && status === 200) {
-          setVehicle(data);
-        }
-      } catch (error) {
-        if (isAxiosError(error)) {
-          Alert.alert('Erro:', `Failed to fetch vehicle data: ${error.message}`);
-        }
-      } finally {
-        setLoading(false);
-      }
-    };
+  function handleClickRental() {
+    router.navigate({
+      pathname: '/scheduling',
+      params: { vehicleId: id },
+    });
+  }
 
-    if (id) {
-      fetchVehicle();
-    }
-  }, [id]);
-
-  const highlights = vehicle
-    ? [
-        {
-          id: 'transmission',
-          title: 'Transmissão',
-          value: transmissionMap[vehicle.transmission] || vehicle.transmission,
-          icon: <GitForkIcon size={24} color={theme.colors.textGray} weight="regular" />,
-        },
-        {
-          id: 'passengers',
-          title: 'Capacidade',
-          value: `${vehicle.passengerCapacity} pessoas`,
-          icon: <UsersIcon size={24} color={theme.colors.textGray} weight="regular" />,
-        },
-        {
-          id: 'traction',
-          title: 'Tração',
-          value: vehicle.has4x4 ? '4x4' : '4x2',
-          icon: <JeepIcon size={24} color={theme.colors.textGray} weight="regular" />,
-        },
-      ]
-    : [];
-
-  if (loading) return;
+  if (isLoading || !vehicle) return null;
 
   return (
     <Screen>
@@ -111,33 +47,30 @@ export function VehicleDetails() {
         <Header>
           <BackButton onPress={handleBack} />
         </Header>
+
         <SliderContainer>
           <ImageSlider data={vehicle?.images ?? []} />
         </SliderContainer>
 
         <DetailsContainer>
-          <HeaderDetailsContainer>
-            <BrandAndModelContainer>
-              <Brand>{vehicle?.brand}</Brand>
-              <Model>{vehicle?.model}</Model>
-            </BrandAndModelContainer>
+          <VehicleHeader
+            brand={vehicle.brand}
+            model={vehicle.model}
+            dailyRate={vehicle.dailyRate}
+          />
 
-            <PriceContainer>
-              <PriceDetails>Ao dia</PriceDetails>
-              <Price>{formattedPrice}</Price>
-            </PriceContainer>
-          </HeaderDetailsContainer>
+          <VehicleSpecsGrid vehicle={vehicle} />
 
-          <HighlightsContainer>
-            {highlights.map((item) => (
-              <HighlightCard key={item.id}>
-                {item.icon}
-                <HighlightCardSpacer />
-                <HighlightValue>{item.value}</HighlightValue>
-              </HighlightCard>
-            ))}
-          </HighlightsContainer>
+          <DescriptionContainer>
+            <Description>{vehicle?.description || ''}</Description>
+          </DescriptionContainer>
         </DetailsContainer>
+
+        <Footer>
+          <Button.Root onPress={handleClickRental}>
+            <Button.Text text="Escolher período do aluguel" />
+          </Button.Root>
+        </Footer>
       </Container>
     </Screen>
   );

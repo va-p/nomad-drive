@@ -7,7 +7,6 @@ export default function VehicleLayout() {
         headerShown: false,
         animation: 'slide_from_right',
       }}>
-      {/* Mapeia explicitamente o arquivo dinâmico */}
       <Stack.Screen name="[id]" />
     </Stack>
   );

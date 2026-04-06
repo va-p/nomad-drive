@@ -1,15 +1,17 @@
-import React from 'react';
-import { Container, Title } from './styles';
+import React, { ReactNode } from 'react';
+import { Container, Spacer, Value } from './styles';
 
 type Props = {
-  title: string;
+  icon: ReactNode;
+  value: string;
 };
 
-export function VehicleHighlightItem({ title }: Props) {
+export function VehicleHighlightItem({ icon, value }: Props) {
   return (
     <Container>
-      {/*<Icon />*/}
-      <Title>{title}</Title>
+      {icon}
+      <Spacer />
+      <Value>{value}</Value>
     </Container>
   );
 }

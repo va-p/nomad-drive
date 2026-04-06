@@ -32,6 +32,7 @@ export interface Vehicle {
   model: string;
   year: number;
   color: string;
+  description?: string | null;
   passengerCapacity: number;
   transmission: TransmissionType;
   has4x4: boolean;
