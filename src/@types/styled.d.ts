@@ -1,6 +1,6 @@
 import 'styled-components';
 
-import ThemeProps from '@interfaces/theme';
+import { ThemeProps } from '@interfaces/theme';
 
 declare module 'styled-components' {
   type ThemeType = typeof ThemeProps;

@@ -3,7 +3,7 @@
     "name": "nomad-drive",
     "slug": "nomad-drive",
     "version": "1.0.0",
-    "scheme": "nomad-drive",
+    "scheme": "com.vap.nomaddrive",
     "platforms": ["ios", "android"],
     "web": {
       "bundler": "metro",

@@ -27,6 +27,7 @@
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
         <data android:scheme="nomad-drive"/>
+        <data android:scheme="com.vap.nomaddrive"/>
       </intent-filter>
     </activity>
   </application>

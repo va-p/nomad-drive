@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Alert, Platform } from 'react-native';
 import { Container, MainContent } from './styles';
 import {
@@ -12,13 +12,14 @@ import {
 } from '@screens/SignIn/styles';
 
 // Dependencies
-import { isAxiosError } from 'axios';
 import * as zod from 'zod';
+import { isAxiosError } from 'axios';
 import { useRouter } from 'expo-router';
+import * as Linking from 'expo-linking';
 import { useForm } from 'react-hook-form';
+import { useSSO } from '@clerk/clerk-expo';
 import { useTheme } from 'styled-components';
 import * as WebBrowser from 'expo-web-browser';
-import { useOAuth, useSSO } from '@clerk/clerk-expo';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 // Components
@@ -72,7 +73,7 @@ export function SignUp() {
     resolver: zodResolver(schema),
   });
 
-  const googleOAuth = useOAuth({ strategy: 'oauth_google' });
+  const { startSSOFlow } = useSSO();
 
   async function handlePressTermsOfUse() {
     await WebBrowser.openBrowserAsync(eUrl.TERMS_OF_USE_URL);
@@ -89,25 +90,31 @@ export function SignUp() {
   async function handleContinueWithGoogle() {
     try {
       setLoading(true);
-      const oAuthFlow = await googleOAuth.startOAuthFlow();
 
-      if (oAuthFlow.authSessionResult?.type === 'success' && oAuthFlow.createdSessionId) {
-        if (oAuthFlow.setActive) {
-          await oAuthFlow.setActive({
-            session: oAuthFlow.createdSessionId,
-          });
-        }
+      const redirectUrl = Linking.createURL('oauth-native-callback', {
+        scheme: 'com.vap.nomaddrive',
+      });
+
+      const { createdSessionId, setActive } = await startSSOFlow({
+        strategy: 'oauth_google',
+        redirectUrl,
+      });
+
+      if (createdSessionId && setActive) {
+        await setActive({ session: createdSessionId });
+        return;
       } else {
-        // Use signIn or signUp returned from startOAuthFlow
-        // for next steps, such as MFA
+        Alert.alert(
+          'Erro',
+          'Não foi possível autenticar com o Google. Por favor, tente novamente.'
+        );
+        setLoading(false);
+        return;
       }
     } catch (error) {
-      console.error('SignIn screen, handleContinueWithGoogle error =>', error);
+      console.error('SignUp screen, handleContinueWithGoogle error =>', error);
       if (isAxiosError(error)) {
-        Alert.alert(
-          'Login',
-          `Não foi possível autenticar com o Google: ${error.response?.data?.message}. Por favor, tente novamente.`
-        );
+        Alert.alert('Cadastro', error.response?.data?.message);
       }
     } finally {
       setLoading(false);
@@ -155,6 +162,14 @@ export function SignUp() {
       setLoading(false);
     }
   }
+
+  useEffect(() => {
+    WebBrowser.warmUpAsync();
+
+    return () => {
+      WebBrowser.coolDownAsync();
+    };
+  }, []);
 
   return (
     <Screen>
