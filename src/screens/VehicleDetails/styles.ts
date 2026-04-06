@@ -17,81 +17,28 @@ export const Header = styled.View`
 `;
 
 export const SliderContainer = styled.View`
-  margin-bottom: 16px;
+  margin: 24px 0 16px;
 `;
 
 export const DetailsContainer = styled.View``;
 
-export const HeaderDetailsContainer = styled.View`
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-`;
-
-export const BrandAndModelContainer = styled.View``;
-
-export const Brand = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
-  text-align: left;
-  color: ${({ theme }) => theme.colors.textGray};
-`;
-
-export const Model = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 18px;
-  text-align: left;
-  color: ${({ theme }) => theme.colors.title};
-`;
-
-export const PriceContainer = styled.View``;
-
-export const PriceDetails = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
-  text-align: left;
-  color: ${({ theme }) => theme.colors.textGray};
-`;
-
-export const Price = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 18px;
-  text-align: left;
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-export const HighlightsContainer = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  margin-bottom: 16px;
-  gap: 8px;
-`;
-
-export const HighlightCard = styled.View`
-  width: 31%;
-  padding: 16px 8px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  background-color: ${({ theme }) => theme.colors.shape};
-`;
-
-export const HighlightCardSpacer = styled.View`
-  margin-top: 8px;
-`;
-
-export const HighlightValue = styled.Text`
-  font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 12px;
-  color: ${({ theme }) => theme.colors.textGray};
+export const DescriptionContainer = styled.View`
+  margin-top: 16px;
 `;
 
 export const Description = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
-  text-align: left;
-  color: ${({ theme }) => theme.colors.text};
+  font-size: 14px;
+  line-height: 25px;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.textGray};
   margin-bottom: 16px;
+`;
+
+export const Footer = styled.View`
+  position: absolute;
+  bottom: 24px;
+  left: 0;
+  right: 0;
+  padding: 0 16px;
 `;
