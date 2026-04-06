@@ -18,6 +18,7 @@ import { useAuth } from '../../contexts/AuthProvider';
 import * as zod from 'zod';
 import { isAxiosError } from 'axios';
 import { useRouter } from 'expo-router';
+import * as Linking from 'expo-linking';
 import { useForm } from 'react-hook-form';
 import { useSSO } from '@clerk/clerk-expo';
 import { useTheme } from 'styled-components';
@@ -87,8 +88,14 @@ export function SignIn() {
   async function handleContinueWithGoogle() {
     try {
       setLoading(true);
+
+      const redirectUrl = Linking.createURL('oauth-native-callback', {
+        scheme: 'com.vap.nomaddrive',
+      });
+
       const { createdSessionId, setActive } = await startSSOFlow({
         strategy: 'oauth_google',
+        redirectUrl,
       });
 
       if (createdSessionId && setActive) {
@@ -107,6 +114,8 @@ export function SignIn() {
       if (isAxiosError(error)) {
         Alert.alert('Login', error.response?.data?.message);
       }
+    } finally {
+      setLoading(false);
     }
   }
 
