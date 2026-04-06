@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useColorScheme } from 'react-native';
 
 import * as Font from 'expo-font';
+import * as WebBrowser from 'expo-web-browser';
 import * as SecureStore from 'expo-secure-store';
 import { ClerkProvider } from '@clerk/clerk-expo';
 import { ThemeProvider } from 'styled-components';
@@ -9,6 +10,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { Slot, useRouter, useSegments } from 'expo-router';
 import { LogLevel, OneSignal } from 'react-native-onesignal';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // import { SkeletonHomeScreen } from '@components/SkeletonOverviewScreen';
 
@@ -24,6 +26,8 @@ import lightTheme from '@themes/lightTheme';
 SplashScreen.preventAutoHideAsync();
 
 const PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
+WebBrowser.maybeCompleteAuthSession();
 
 const tokenCache = {
   async getToken(key: string) {
@@ -73,6 +77,10 @@ function RootNavigationLayout() {
 }
 
 export default function RootLayout() {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 2 } },
+  });
+
   const setDarkMode = useUserConfigs((state) => state.setDarkMode);
   const deviceColorScheme = useColorScheme();
 
@@ -118,9 +126,11 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
         <ClerkProvider tokenCache={tokenCache} publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY || ''}>
-          <AuthProvider>
-            <RootNavigationLayout />
-          </AuthProvider>
+          <QueryClientProvider client={queryClient}>
+            <AuthProvider>
+              <RootNavigationLayout />
+            </AuthProvider>
+          </QueryClientProvider>
         </ClerkProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
