@@ -25,6 +25,10 @@ import lightTheme from '@themes/lightTheme';
 
 SplashScreen.preventAutoHideAsync();
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 2 } },
+});
+
 const PUBLIC_CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 WebBrowser.maybeCompleteAuthSession();
@@ -77,10 +81,6 @@ function RootNavigationLayout() {
 }
 
 export default function RootLayout() {
-  const queryClient = new QueryClient({
-    defaultOptions: { queries: { staleTime: 1000 * 60 * 5, retry: 2 } },
-  });
-
   const setDarkMode = useUserConfigs((state) => state.setDarkMode);
   const deviceColorScheme = useColorScheme();
 
