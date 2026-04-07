@@ -59,7 +59,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Veículos',
+            title: 'Alugar',
             tabBarIcon: ({ size, color }) => <JeepIcon size={size} color={color} />,
             sceneStyle: {
               backgroundColor: 'transparent',
@@ -69,7 +69,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="trips"
           options={{
-            title: 'Agendamentos',
+            title: 'Reservas',
             tabBarIcon: ({ color }) => <CalendarCheckIcon color={color} />,
             sceneStyle: {
               backgroundColor: 'transparent',
