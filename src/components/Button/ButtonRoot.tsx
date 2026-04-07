@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Container, TypeProps } from './styles';
+import { Container, VariantProps, TypeProps } from './styles';
 
 import { RectButtonProps } from 'react-native-gesture-handler';
 
@@ -8,17 +8,19 @@ import { Load } from '@components/Button/components/Load';
 type ButtonRootProps = RectButtonProps & {
   children: ReactNode;
   type?: TypeProps;
+  variant?: VariantProps;
   isLoading?: boolean;
 };
 
 export function ButtonRoot({
   children,
   type = 'primary',
+  variant = 'solid',
   isLoading,
   ...rest
 }: ButtonRootProps) {
   return (
-    <Container enabled={!isLoading} {...rest}>
+    <Container variant={variant} enabled={!isLoading} {...rest}>
       {isLoading ? <Load type={type} /> : children}
     </Container>
   );

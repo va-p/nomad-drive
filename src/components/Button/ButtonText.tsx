@@ -1,10 +1,11 @@
 import React from 'react';
-import { Text } from './styles';
+import { Text, VariantProps } from './styles';
 
 type ButtonTextPros = {
   text: string;
+  variant?: VariantProps;
 };
 
-export function ButtonText({ text }: ButtonTextPros) {
-  return <Text>{text}</Text>;
+export function ButtonText({ text, variant }: ButtonTextPros) {
+  return <Text variant={variant}>{text}</Text>;
 }

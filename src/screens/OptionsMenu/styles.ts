@@ -18,3 +18,22 @@ export const Title = styled.Text`
   padding-left: 16px;
   color: ${({ theme }) => theme.colors.title};
 `;
+
+export const Footer = styled.View`
+  margin-top: 24px;
+`;
+
+export const LogoutText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: 16px;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+export const LogoutButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 16px;
+  column-gap: 64px;
+  /*justify-content: space-between;*/
+`;
