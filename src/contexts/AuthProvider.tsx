@@ -148,66 +148,27 @@ export function AuthProvider({ children }: any) {
     }
   }
 
-  useEffect(() => {
-    if (!clerkLoaded) {
-      if (!loading) setLoading(true);
-      return;
+  const fetchClerkUserDataOnDB = useCallback(async () => {
+    // Delay of a few seconds for the Clerk webhook to finish its request to the Backend
+    await new Promise((resolve) => setTimeout(resolve, CLERK_WEBHOOK_DELAY));
+
+    const { data, status } = await api.get('/auth/clerk_sso', {
+      params: {
+        clerk_user_id: clerkUser?.id!,
+      },
+    });
+
+    if (!!data[0] && status === 200) {
+      storageToken.set(`${STORAGE_TOKENS}`, JSON.stringify(data[0]));
+      const loggedInUserDataFormatted = storageUserDataAndConfig(data[1]);
+      OneSignal.login(loggedInUserDataFormatted.id);
+      setIsSignedIn(true);
+      setUser(loggedInUserDataFormatted);
+    } else {
+      await clerk.signOut();
+      Alert.alert('Erro', 'Usuário não encontrado.');
     }
-
-    if (clerkSignedIn) {
-      return;
-    }
-
-    const attemptBiometricLogin = async () => {
-      const canUseBiometrics = await canSignInWithBiometrics();
-      if (canUseBiometrics) {
-        await signInWithBiometrics();
-      }
-    };
-
-    if (!isSignedIn) {
-      setLoading(false);
-    }
-
-    attemptBiometricLogin();
-  }, [clerkLoaded, clerkSignedIn, isSignedIn, loading]);
-
-  const fetchClerkUserDataOnDB = useCallback(
-    () => async () => {
-      return new Promise<void>(async (resolve, reject) => {
-        try {
-          // Delay of few seconds, to Clerk webhook finish request to Backend
-          setTimeout(async () => {
-            try {
-              const { data, status } = await api.get('/auth/clerk_sso', {
-                params: {
-                  clerk_user_id: clerkUser?.id!,
-                },
-              });
-
-              if (!!data[0] && status === 200) {
-                storageToken.set(`${STORAGE_TOKENS}`, JSON.stringify(data[0]));
-                const loggedInUserDataFormatted = storageUserDataAndConfig(data[1]);
-                OneSignal.login(loggedInUserDataFormatted.id);
-                setIsSignedIn(clerkSignedIn!);
-                setUser(loggedInUserDataFormatted);
-              } else {
-                await clerk.signOut();
-                Alert.alert('Erro', 'Usuário não encontrado.');
-              }
-              resolve();
-            } catch (error) {
-              reject(error);
-            }
-          }, CLERK_WEBHOOK_DELAY);
-        } catch (error) {
-          console.error('Erro ao buscar dados do usuário =>', error);
-          reject(error);
-        }
-      });
-    },
-    [clerk, clerkSignedIn, clerkUser?.id]
-  );
+  }, [clerk, clerkUser?.id]);
 
   async function signInWithMail(formData: FormData) {
     try {
@@ -291,9 +252,11 @@ export function AuthProvider({ children }: any) {
         return;
       }
 
+      setLoading(true);
+
       try {
         if (clerkSignedIn && clerkUser) {
-          fetchClerkUserDataOnDB();
+          await fetchClerkUserDataOnDB();
         } else {
           const canUseBiometrics = await canSignInWithBiometrics();
           if (canUseBiometrics) {
@@ -311,7 +274,9 @@ export function AuthProvider({ children }: any) {
     };
 
     initializeAuth();
-  }, [clerkLoaded, clerkSignedIn, clerkUser, fetchClerkUserDataOnDB]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [clerkLoaded, clerkSignedIn, clerkUser]);
 
   const contextValue = {
     isSignedIn,
