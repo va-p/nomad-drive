@@ -2,9 +2,12 @@ import React from 'react';
 import { Alert } from 'react-native';
 import { Container, ContentScroll, Title } from './styles';
 
+import { useAuth } from '@contexts/AuthProvider';
+
 // Icons
 import { UserIcon } from 'phosphor-react-native/src/icons/User';
 import { CookieIcon } from 'phosphor-react-native/src/icons/Cookie';
+import { SignOutIcon } from 'phosphor-react-native/src/icons/SignOut';
 import { LifebuoyIcon } from 'phosphor-react-native/src/icons/Lifebuoy';
 import { MoonStarsIcon } from 'phosphor-react-native/src/icons/MoonStars';
 import { FingerprintIcon } from 'phosphor-react-native/src/icons/Fingerprint';
@@ -18,9 +21,11 @@ import { useTheme } from 'styled-components';
 import * as WebBrowser from 'expo-web-browser';
 import * as LocalAuthentication from 'expo-local-authentication';
 
-// Screens
+// Components
 import { Screen } from '@components/Screen';
 import { Header } from '@components/Header';
+import { ButtonToggle } from '@components/ButtonToggle';
+import { ButtonSelect } from '@components/ButtonSelect';
 
 // Storages
 import { useUser } from '@stores/userStore';
@@ -32,12 +37,12 @@ import api from '@api/api';
 // Interfaces
 import { eUrl } from '@enums/enumsUrl';
 import { ThemeProps } from '@interfaces/theme';
-import { ButtonToggle } from '@components/ButtonToggle';
-import { ButtonSelect } from '@components/ButtonSelect';
 
 export function OptionsMenu() {
   const theme = useTheme() as ThemeProps;
   const router = useRouter();
+
+  const { signOut } = useAuth();
 
   const userId = useUser((state) => state.id);
 
@@ -123,6 +128,12 @@ export function OptionsMenu() {
             icon={<UserIcon color={theme.colors.primary} />}
             title="Perfil"
             onPress={handleOpenProfile}
+          />
+
+          <ButtonSelect
+            icon={<SignOutIcon color={theme.colors.primary} />}
+            title="Sair"
+            onPress={signOut}
           />
 
           <Title>Configurações</Title>
