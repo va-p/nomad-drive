@@ -11,9 +11,10 @@ type Props = RectButtonProps & {
   title: string;
   subTitle?: string;
   icon: any;
+  chevron?: boolean;
 };
 
-export function ButtonSelect({ title, subTitle, icon, ...rest }: Props) {
+export function ButtonSelect({ title, subTitle, icon, chevron = true, ...rest }: Props) {
   const theme = useTheme() as ThemeProps;
 
   return (
@@ -24,7 +25,7 @@ export function ButtonSelect({ title, subTitle, icon, ...rest }: Props) {
       </TitleContainer>
       <SubtitleContainer>
         <SubTitle>{subTitle}</SubTitle>
-        <CaretRightIcon size={16} color={theme.colors.text} />
+        {chevron && <CaretRightIcon size={16} color={theme.colors.text} />}
       </SubtitleContainer>
     </Container>
   );

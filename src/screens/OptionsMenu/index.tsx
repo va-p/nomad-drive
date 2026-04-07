@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Alert } from 'react-native';
-import { Container, ContentScroll, Title } from './styles';
+import {
+  Container,
+  ContentScroll,
+  Title,
+  Footer,
+  LogoutText,
+  LogoutButtonsContainer,
+} from './styles';
 
 import { useAuth } from '@contexts/AuthProvider';
 
@@ -19,11 +26,14 @@ import { reloadAppAsync } from 'expo';
 import { useRouter } from 'expo-router';
 import { useTheme } from 'styled-components';
 import * as WebBrowser from 'expo-web-browser';
+import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import * as LocalAuthentication from 'expo-local-authentication';
 
 // Components
+import { Modal } from '@components/Modal';
 import { Screen } from '@components/Screen';
 import { Header } from '@components/Header';
+import { Button } from '@components/Button';
 import { ButtonToggle } from '@components/ButtonToggle';
 import { ButtonSelect } from '@components/ButtonSelect';
 
@@ -41,6 +51,8 @@ import { ThemeProps } from '@interfaces/theme';
 export function OptionsMenu() {
   const theme = useTheme() as ThemeProps;
   const router = useRouter();
+
+  const bottomSheetRef = useRef<BottomSheetModal>(null);
 
   const { signOut } = useAuth();
 
@@ -115,6 +127,14 @@ export function OptionsMenu() {
     }
   }
 
+  const handleOpenModal = () => {
+    bottomSheetRef.current?.present();
+  };
+
+  const handleCloseModal = () => {
+    bottomSheetRef.current?.dismiss();
+  };
+
   return (
     <Screen>
       <Container>
@@ -128,12 +148,6 @@ export function OptionsMenu() {
             icon={<UserIcon color={theme.colors.primary} />}
             title="Perfil"
             onPress={handleOpenProfile}
-          />
-
-          <ButtonSelect
-            icon={<SignOutIcon color={theme.colors.primary} />}
-            title="Sair"
-            onPress={signOut}
           />
 
           <Title>Configurações</Title>
@@ -172,7 +186,30 @@ export function OptionsMenu() {
             onPress={() => handleOpenPrivacyPolicy()}
             onLongPress={handleOpenDevScreen}
           />
+
+          <Footer>
+            <ButtonSelect
+              icon={<SignOutIcon color={theme.colors.primary} />}
+              title="Sair"
+              chevron={false}
+              onPress={handleOpenModal}
+            />
+          </Footer>
         </ContentScroll>
+
+        <Modal bottomSheetRef={bottomSheetRef} snapPoints={['30%']}>
+          <LogoutText>Tem certeza que deseja sair?</LogoutText>
+
+          <LogoutButtonsContainer>
+            <Button.Root onPress={handleCloseModal}>
+              <Button.Text text="Cancelar" />
+            </Button.Root>
+
+            <Button.Root variant="outline" onPress={signOut}>
+              <Button.Text variant="outline" text="Sair" />
+            </Button.Root>
+          </LogoutButtonsContainer>
+        </Modal>
       </Container>
     </Screen>
   );

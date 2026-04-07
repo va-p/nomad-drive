@@ -9,6 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import * as SplashScreen from 'expo-splash-screen';
 import { Slot, useRouter, useSegments } from 'expo-router';
 import { LogLevel, OneSignal } from 'react-native-onesignal';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -128,7 +129,9 @@ export default function RootLayout() {
         <ClerkProvider tokenCache={tokenCache} publishableKey={PUBLIC_CLERK_PUBLISHABLE_KEY || ''}>
           <QueryClientProvider client={queryClient}>
             <AuthProvider>
-              <RootNavigationLayout />
+              <BottomSheetModalProvider>
+                <RootNavigationLayout />
+              </BottomSheetModalProvider>
             </AuthProvider>
           </QueryClientProvider>
         </ClerkProvider>
