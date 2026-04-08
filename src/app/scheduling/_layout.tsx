@@ -7,7 +7,7 @@ export default function SchedulingLayout() {
         headerShown: false,
         animation: 'slide_from_right',
       }}>
-      <Stack.Screen name="[id]" />
+      <Stack.Screen name="index" />
     </Stack>
   );
 }

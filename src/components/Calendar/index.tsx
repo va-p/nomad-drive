@@ -66,7 +66,7 @@ function Calendar({ markedDates, onDayPress }: CalendarProps) {
         textMonthFontSize: 20,
         monthTextColor: theme.colors.title,
         arrowStyle: {
-          marginHorizontal: -15,
+          marginHorizontal: -4,
         },
       }}
       firstDay={1}

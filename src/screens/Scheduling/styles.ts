@@ -12,9 +12,7 @@ export const Container = styled.View`
 export const Header = styled.View`
   width: 100%;
   height: 325px;
-  justify-content: center;
-  padding: 25px;
-  padding-top: 36px;
+  padding: 16px 16px 0;
   background-color: ${({ theme }) => theme.colors.background};
 `;
 
@@ -37,7 +35,9 @@ export const DateInfo = styled.View`
   width: 30%;
 `;
 
-export const DateTitle = styled.Text`
+export const DateTitle = styled.Text.attrs({
+  textTransform: 'capitalize',
+})`
   font-family: ${({ theme }) => theme.fonts.regular};
   font-size: 12px;
   color: ${({ theme }) => theme.colors.textGray};
@@ -53,7 +53,7 @@ export const DateValue = styled.Text<DateValueProps>`
     css`
       padding-bottom: 5px;
       border-bottom-width: 1px;
-      border-bottom-color: ${theme.colors.border};
+      border-bottom-color: ${theme.colors.textGray};
     `};
 `;
 
@@ -68,14 +68,35 @@ export const Footer = styled.View`
   padding: 24px;
 `;
 
+export const NoDateSelectedText = styled.Text`
+  font-family: ${({ theme }) => theme.fonts.regular};
+  font-size: 18px;
+  text-align: center;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
 export const SelectedTimeSubTitleContainer = styled.View`
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  padding-horizontal: 32px;
 `;
 
-export const SelectedTimeSubTitle = styled.Text`
+export const SelectedTimeSubTitle = styled.Text.attrs({
+  textTransform: 'uppercase',
+})`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: 14px;
   margin-bottom: 8px;
   color: ${({ theme }) => theme.colors.text};
+`;
+
+export const TimePickerGroupContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 16px;
+`;
+
+export const TimePickerContainer = styled.View`
+  width: 25%;
 `;
