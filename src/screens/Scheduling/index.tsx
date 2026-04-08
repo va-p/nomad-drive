@@ -141,7 +141,7 @@ export function Scheduling() {
     });
 
     bottomSheetRef.current?.dismiss();
-    router.push('/scheduling-details');
+    router.push('/schedulingDetails');
   }
 
   return (
