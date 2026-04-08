@@ -25,8 +25,6 @@ export function ImageSlider({ data }: Props) {
     setImageIndex(index);
   });
 
-  console.log('images data:', data);
-
   return (
     <Container>
       <FlatList
@@ -38,7 +36,7 @@ export function ImageSlider({ data }: Props) {
               source={{
                 uri: item.imageUrl,
               }}
-              resizeMode="contain"
+              contentFit="contain"
             />
           </VehicleImageWrapper>
         )}

@@ -65,7 +65,7 @@ export const ImageContainer = styled.View`
 `;
 
 export const Image = styled.Image.attrs({
-  resizeMode: 'cover',
+  contentFit: 'cover',
 })`
   min-width: 150px;
   max-width: 150px;
