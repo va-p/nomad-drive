@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Container,
-  Header,
   SliderContainer,
   DetailsContainer,
   DescriptionContainer,
@@ -18,19 +17,15 @@ import { router, useLocalSearchParams } from 'expo-router';
 // Components
 import { Screen } from '@components/Screen';
 import { Button } from '@components/Button';
-import { BackButton } from '@components/BackButton';
 import { ImageSlider } from '@components/ImageSlider';
 import { VehicleHeader } from '@components/VehicleHeader';
 import { VehicleSpecsGrid } from '@components/VehicleSpecsGrid';
+import { Header } from '@components/Header';
 
 export function VehicleDetails() {
   const { id } = useLocalSearchParams<{ id: string }>();
 
   const { data: vehicle, isLoading } = useVehicleDetails(id);
-
-  const handleBack = () => {
-    router.back();
-  };
 
   function handleClickRental() {
     router.navigate({
@@ -44,9 +39,9 @@ export function VehicleDetails() {
   return (
     <Screen>
       <Container>
-        <Header>
-          <BackButton onPress={handleBack} />
-        </Header>
+        <Header.Root alignItems="flex-start">
+          <Header.BackButton />
+        </Header.Root>
 
         <SliderContainer>
           <ImageSlider data={vehicle?.images ?? []} />

@@ -4,15 +4,15 @@ import { Container } from './styles';
 
 type HeaderRootProps = ViewProps & {
   children: ReactNode | ReactNode[];
+  alignItems?: 'flex-start' | 'flex-end' | 'center';
 };
 
-export function HeaderRoot({ children, ...rest }: HeaderRootProps) {
+export function HeaderRoot({ children, alignItems, ...rest }: HeaderRootProps) {
   const [childsCount, setChildsCount] = useState(0);
 
   useEffect(() => {
     function countChildren() {
       if (children?.length && children.length > 1) {
-        // console.log('children.length ===>', children.length);
         setChildsCount(children.length);
       }
 
@@ -25,7 +25,7 @@ export function HeaderRoot({ children, ...rest }: HeaderRootProps) {
   }, [children]);
 
   return (
-    <Container childsCount={childsCount} {...rest}>
+    <Container childsCount={childsCount} alignItems={alignItems} {...rest}>
       {children}
     </Container>
   );

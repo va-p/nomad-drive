@@ -28,6 +28,24 @@ export const Container = styled.View<ContainerProps>`
     css`
       justify-content: space-between;
     `};
+
+  ${({ alignItems }) =>
+    alignItems === 'flex-start' &&
+    css`
+      justify-content: flex-start;
+    `};
+
+  ${({ alignItems }) =>
+    alignItems === 'flex-end' &&
+    css`
+      justify-content: flex-end;
+    `};
+
+  ${({ alignItems }) =>
+    alignItems === 'center' &&
+    css`
+      justify-content: center;
+    `};
 `;
 
 export const Button = styled(BorderlessButton)``;
@@ -49,7 +67,7 @@ export const Title = styled.Text.attrs({
   numberOfLines: 2,
   ellipsizeMode: 'tail',
 })`
-  font-family: ${({ theme }) => theme.fonts.regular};
+  font-family: ${({ theme }) => theme.fonts.medium};
   font-size: 16px;
   text-align: center;
   color: ${({ theme }) => theme.colors.text};

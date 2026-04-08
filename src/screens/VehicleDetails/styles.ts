@@ -2,18 +2,8 @@ import styled from 'styled-components/native';
 
 export const Container = styled.View`
   flex: 1;
-  padding: 0 16px;
-  background-color: ${({ theme }) => theme.colors.backgroundNav};
-`;
-
-export const Header = styled.View`
-  flex-direction: row;
-  position: absolute;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
-  margin-left: 24px;
-  z-index: 1000;
+  padding: 8px 16px 0;
+  background-color: ${({ theme }) => theme.colors.background};
 `;
 
 export const SliderContainer = styled.View`
