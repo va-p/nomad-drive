@@ -15,6 +15,6 @@ export const Spacer = styled.View`
 
 export const Value = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;

@@ -75,7 +75,7 @@ export const Title = styled.Text.attrs({
 
 export const Description = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   text-align: center;
   color: ${({ theme }) => theme.colors.text};
 `;

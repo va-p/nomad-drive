@@ -17,7 +17,7 @@ export const Line = styled.View`
 
 export const Text = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   text-align: left;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.text};

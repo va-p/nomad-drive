@@ -22,7 +22,7 @@ export const Container = styled(RectButton)<VariantProps>`
 
 export const Text = styled.Text<VariantProps>`
   font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   margin: 0 8px;
   color: ${({ theme, variant }) =>
     variant === 'outline' ? theme.colors.primary : theme.colors.textLight};

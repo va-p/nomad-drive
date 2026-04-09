@@ -18,7 +18,7 @@ export const DescriptionContainer = styled.View`
 
 export const Description = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   line-height: 25px;
   text-align: center;
   color: ${({ theme }) => theme.colors.textGray};

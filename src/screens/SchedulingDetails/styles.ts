@@ -16,7 +16,7 @@ export const DescriptionContainer = styled.View`
 
 export const Description = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   line-height: 25px;
   text-align: center;
   margin-bottom: 16px;
@@ -62,14 +62,14 @@ export const DateAndTimeInfo = styled.View`
 
 export const DateTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   margin-bottom: 4px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 
 export const DateValue = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   color: ${({ theme }) => theme.colors.title};
 `;
 
@@ -80,7 +80,7 @@ export const RentalPrice = styled.View`
 
 export const RentalPriceLabel = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textGray};
 `;

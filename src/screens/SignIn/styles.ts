@@ -37,7 +37,7 @@ export const Logo = styled.Image.attrs({
 
 export const SubTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   text-align: left;
   color: ${({ theme }) => theme.colors.text};
 `;
@@ -50,7 +50,7 @@ export const FormWrapper = styled.View`
 
 export const Text = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.text};
 `;
 

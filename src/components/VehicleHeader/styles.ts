@@ -11,7 +11,7 @@ export const BrandAndModelContainer = styled.View``;
 
 export const Brand = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   text-align: left;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textGray};
@@ -19,7 +19,7 @@ export const Brand = styled.Text`
 
 export const Model = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fonts.sizeTitle}px;
   text-align: left;
   color: ${({ theme }) => theme.colors.title};
 `;
@@ -28,7 +28,7 @@ export const PriceContainer = styled.View``;
 
 export const PriceDetails = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   text-align: left;
   text-transform: uppercase;
   color: ${({ theme }) => theme.colors.textGray};
@@ -36,7 +36,7 @@ export const PriceDetails = styled.Text`
 
 export const Price = styled.Text`
   font-family: ${({ theme }) => theme.fonts.medium};
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fonts.sizeTitle}px;
   text-align: left;
   color: ${({ theme }) => theme.colors.primary};
 `;

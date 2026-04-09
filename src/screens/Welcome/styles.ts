@@ -28,6 +28,6 @@ export const Title = styled.Text<TitleProps>`
 
 export const Text = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   color: ${({ theme }) => theme.colors.text};
 `;

@@ -14,7 +14,7 @@ export const Header = styled.View`
 `;
 
 export const Description = styled.Text`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 

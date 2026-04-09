@@ -112,7 +112,7 @@ export function SchedulingDetails() {
 
           <RentalPriceDetails>
             <RentalPriceGroup>
-              <RentalPriceQuota>{`R$ ${vehicle?.dailyRate} x ${formattedDisplayDays} diárias`}</RentalPriceQuota>
+              <RentalPriceQuota>{`R$ ${vehicle?.dailyRate} x ${formattedDisplayDays} ${displayDays > 1 ? 'diárias' : 'diária'}`}</RentalPriceQuota>
 
               {isHalfDayIncluded && <RentalPriceQuota>*Incluído meia-diária</RentalPriceQuota>}
             </RentalPriceGroup>

@@ -5,6 +5,6 @@ export const Container = styled.View`
 `;
 
 export const ErrorMessage = styled.Text`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.attention};
 `;

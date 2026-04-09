@@ -2,7 +2,7 @@ import { TextInput } from 'react-native';
 import styled, { css } from 'styled-components/native';
 
 export const Label = styled.Text`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   margin: 16px 0 -12px;
   ${({ theme }) => css`
     font-family: ${theme.fonts.regular};
@@ -27,7 +27,7 @@ export const InputText = styled(TextInput).attrs(({ theme }) => ({
   height: 48px;
   padding: 8px 0;
   padding-left: 20px;
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   ${({ theme }) => css`
     font-family: ${theme.fonts.regular};
     color: ${theme.colors.text};

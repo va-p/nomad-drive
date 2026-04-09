@@ -1,43 +1,43 @@
 export default {
   colors: {
-    primary: 'rgb(255, 170, 41)',
-    primary_light: 'rgba(255, 170, 41, 0.5)',
+    primary: '#FFAA29',
+    primary_light: 'rgba(255, 170, 41, 0.3)',
 
-    background: 'rgb(0, 0, 0)',
-    backgroundNav: 'rgb(20, 20, 20)',
-    statusBar: 'rgb(14, 14, 14)',
-    backgroundCardHeader: 'rgba(27, 27, 31, 1)', // Card of top screens
+    background: '#121214',
+    backgroundNav: '#1A1A1E',
+    statusBar: '#121214',
+    backgroundCardHeader: 'rgba(32, 32, 36, 0.9)', // Card of top screens
 
-    gradientStart: 'rgb(20, 20, 20)',
-    gradientEnd: 'rgb(0, 0, 0)',
+    gradientStart: '#1A1A1E',
+    gradientEnd: '#121214',
 
-    shape: 'rgba(40, 40, 40, 0.8)',
-    shapeDark: 'rgb(120, 120, 120)',
+    shape: '#202024',
+    shapeDark: '#29292E',
 
-    button: 'rgb(255, 170, 41)',
+    button: '#FFAA29',
 
-    title: 'rgb(255, 255, 255)',
-    text: 'rgb(220, 220, 220)',
-    textPlaceholder: 'rgb(100, 100, 100)',
-    textLight: 'rgb(0, 0, 0)',
-    textGray: 'rgb(150, 156, 178)',
+    title: '#E1E1E6',
+    text: '#A8A8B3',
+    textPlaceholder: '#7C7C8A',
 
-    // border: 'rgb(60, 60, 60)',
-    border: 'rgba(224, 224, 224, 1)',
+    textLight: '#121214',
+    textGray: '#8D8D99',
 
-    success: 'rgb(18, 195, 140)',
-    success_light: 'rgba(18, 195, 140, 0.5)',
+    border: '#323238',
 
-    attention: 'rgb(251, 103, 103)',
-    attention_light: 'rgba(251, 103, 103, 0.5)',
+    success: '#04D361',
+    success_light: 'rgba(4, 211, 97, 0.2)',
 
-    overlay: 'rgba(255, 255, 255, 0.1)',
+    attention: '#F75A68',
+    attention_light: 'rgba(247, 90, 104, 0.2)',
+
+    overlay: 'rgba(0, 0, 0, 0.8)',
     overlay10: 'rgba(255, 255, 255, 0.05)',
     overlayGray: 'rgba(100, 100, 100, 0.1)',
   },
 
   borders: {
-    default: '1px solid #707070',
+    default: '1px solid #323238',
     borderRadiusScreenSectionContent: '75px',
     borderRadiusShape: '25px',
     borderRadiusButtonAndInput: '40px',
@@ -47,5 +47,9 @@ export default {
     regular: 'Poppins_400Regular',
     medium: 'Poppins_500Medium',
     bold: 'Poppins_700Bold',
+
+    sizeTitle: 18,
+    sizeSubtitle: 14,
+    sizeText: 12,
   },
 };

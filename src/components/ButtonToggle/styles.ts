@@ -15,7 +15,7 @@ export const TitleContainer = styled.View`
 
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   padding-left: 8px;
   color: ${({ theme }) => theme.colors.text};
 `;
@@ -26,7 +26,7 @@ export const SubtitleContainer = styled.View`
 
 export const SubTitle = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   padding-right: 10px;
   color: ${({ theme }) => theme.colors.text};
 `;

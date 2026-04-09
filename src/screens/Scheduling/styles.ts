@@ -39,13 +39,13 @@ export const DateTitle = styled.Text.attrs({
   textTransform: 'capitalize',
 })`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 
 export const DateValue = styled.Text<DateValueProps>`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   color: ${({ theme }) => theme.colors.textTitle};
 
   ${({ selected, theme }) =>
@@ -86,7 +86,7 @@ export const SelectedTimeSubTitle = styled.Text.attrs({
   textTransform: 'uppercase',
 })`
   font-family: ${({ theme }) => theme.fonts.regular};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   margin-bottom: 8px;
   color: ${({ theme }) => theme.colors.text};
 `;

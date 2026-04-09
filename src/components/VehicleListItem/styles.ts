@@ -20,7 +20,7 @@ export const DetailsContainer = styled.View`
 `;
 
 export const Type = styled.Text`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 
@@ -28,7 +28,7 @@ export const Brand = styled.Text.attrs({
   numberOfLines: 1,
   textTransform: 'capitalize',
 })`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 
@@ -39,7 +39,7 @@ export const Model = styled.Text`
 `;
 
 export const PassengerCapacity = styled.Text`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 
@@ -50,13 +50,13 @@ export const PriceContainer = styled.View`
 `;
 
 export const DailyRate = styled.Text`
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.fonts.sizeSubtitle}px;
   font-weight: bold;
   color: ${({ theme }) => theme.colors.primary};
 `;
 
 export const PriceDescription = styled.Text`
-  font-size: 12px;
+  font-size: ${({ theme }) => theme.fonts.sizeText}px;
   color: ${({ theme }) => theme.colors.textGray};
 `;
 
