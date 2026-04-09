@@ -1,14 +1,16 @@
 import { create } from 'zustand';
 
+import { Vehicle } from '@interfaces/vehicle';
+
 interface BookingState {
-  vehicle: any | null;
+  vehicle: Vehicle | null;
   startDate: string; // Format YYYY-MM-DD
   endDate: string; // Format YYYY-MM-DD
   pickupHour: number;
   dropoffHour: number;
 
   // Actions
-  setVehicle: (vehicle: any) => void;
+  setVehicle: (vehicle: Vehicle | null) => void;
   setBookingPeriod: (data: {
     start: string;
     end: string;
