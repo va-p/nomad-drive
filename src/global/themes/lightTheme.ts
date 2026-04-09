@@ -1,9 +1,8 @@
 export default {
   colors: {
     primary: 'rgb(255, 170, 41)',
-    primary_light: 'rgba(255, 82, 0, 0.3)',
+    primary_light: 'rgba(255, 170, 41, 0.5)',
 
-    // background: 'rgb(230, 233, 244)',
     background: 'rgb(255, 255, 255)',
     backgroundNav: 'rgba(255, 255, 255, 0.95)',
     statusBar: 'rgb(230, 233, 244)',
@@ -12,19 +11,18 @@ export default {
     gradientStart: '#FFEBCE',
     gradientEnd: '#E6E9F4',
 
-    // shape: 'rgba(255, 255, 255, 1)',
     shape: 'rgba(244, 245, 246, 1)',
     shapeDark: 'rgb(150, 156, 178)',
 
     button: 'rgb(255, 170, 41)',
 
     title: 'rgb(71, 71, 77)',
-    text: '#000000',
+    text: 'rgb(0, 0, 0)',
     textPlaceholder: 'rgb(174, 174, 179)',
     textLight: 'rgb(255, 255, 255)',
     textGray: 'rgba(122, 122, 128, 1)',
 
-    border: 'rgba(255, 255, 255, 1)',
+    border: 'rgba(224, 224, 224, 1)',
 
     success: 'rgb(18, 195, 140)',
     success_light: 'rgba(18, 195, 140, 0.7)',

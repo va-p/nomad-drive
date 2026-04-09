@@ -22,7 +22,8 @@ export default {
     textLight: 'rgb(0, 0, 0)',
     textGray: 'rgb(150, 156, 178)',
 
-    border: 'rgb(60, 60, 60)',
+    // border: 'rgb(60, 60, 60)',
+    border: 'rgba(224, 224, 224, 1)',
 
     success: 'rgb(18, 195, 140)',
     success_light: 'rgba(18, 195, 140, 0.5)',
